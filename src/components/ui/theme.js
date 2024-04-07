@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 const arcBlue = "#0B72B9";
 const arcOrange = "#FFBA60";
-export const themes = createTheme({
+export const theme = createTheme({
   palette: {
     common: {
       blue: `${arcBlue}`,
@@ -22,5 +22,10 @@ export const themes = createTheme({
       fontWeight: 700,
       fontSize: "1rem",
     },
+    estimate: {
+      fontSize: "1rem",
+      textTransform: "none",
+    
+    }
   },
 });

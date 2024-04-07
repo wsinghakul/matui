@@ -6,7 +6,7 @@ import makeStyles from "@mui/styles/makeStyles";
 import logo from "../../assets/logo.svg";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { themes } from "./theme";
+import Button from "@mui/material/Button";
 function ElevationScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -23,17 +23,24 @@ function ElevationScroll(props) {
   });
 }
 
-const useStyles = makeStyles(themes => ({
+const useStyles = makeStyles((theme) => ({
   logo: {
-    height: "7em",
+    height: "5em",
   },
   tabContainer: {
     marginLeft: "auto",
   },
   tab: {
-    ...themes.typography.tab,
+    ...theme.typography.tab,
     minWidth: 10,
-    marginLeft: "25px",
+    marginLeft: "50px",
+  },
+  button: {
+    ...theme.typography.estimate,
+    borderRadius: "50px",
+    marginLeft: "50px",
+    marginRight: "25px",
+    height: "45px",
   },
 }));
 
@@ -45,13 +52,20 @@ export default function Header(props) {
         <AppBar position="fixed" color="primary">
           <Toolbar disableGutters>
             <img alt="company logo" src={logo} className={classes.logo} />
-            <Tabs className="classes.tabContainer">
-              <Tab className="classes.tab" label="Home" />
-              <Tab className="classes.tab" label="Services" />
-              <Tab className="classes.tab" label="The revolution" />
-              <Tab className="classes.tab" label="about us" />
-              <Tab className="classes.tab" label="contact us" />
+            <Tabs className={classes.tabContainer}>
+              <Tab className={classes.tab} label="Home" />
+              <Tab className={classes.tab} label="Services" />
+              <Tab className={classes.tab} label="The revolution" />
+              <Tab className={classes.tab} label="about us" />
+              <Tab className={classes.tab} label="contact us" />
             </Tabs>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+            >
+              Free Estimate
+            </Button>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
