@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     height: "5em",
   },
   tabContainer: {
-    marginLeft: "50px",
+    marginLeft: "auto",
   },
   tab: {
     ...theme.typography.tab,
