@@ -10,10 +10,10 @@ function App() {
         <Route path="/" element={<Header />}>
           <Route index element={<div>Home</div>} />
           <Route path="services" element={<div>Services</div>} />
-          <Route path="therevolution" element={<div>The Revolution</div>} />
-          <Route path="aboutus" element={<div>about us</div>} />
-          <Route path="contactus" element={<div>contact us</div>} />
-          
+          <Route path="revolution" element={<div>The Revolution</div>} />
+          <Route path="about" element={<div>about us</div>} />
+          <Route path="contact" element={<div>contact us</div>} />
+          <Route path="estimate" element={<div>free estimate</div>} />
         </Route>
       </Routes>
     </ThemeProvider>

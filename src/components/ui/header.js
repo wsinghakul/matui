@@ -1,6 +1,6 @@
 import { AppBar } from "@mui/material";
 import { Toolbar } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import makeStyles from "@mui/styles/makeStyles";
 import logo from "../../assets/logo.svg";
@@ -52,6 +52,22 @@ export default function Header(props) {
   const handleChange = (e, value) => {
     setValue(value);
   };
+
+  useEffect(() => {
+    if (window.location.pathname === "/" && value !== 0) {
+      setValue(0);
+    } else if (window.location.pathname === "/services" && value !== 1) {
+      setValue(1);
+    } else if (window.location.pathname === "/revolution" && value !== 2) {
+      setValue(2);
+    } else if (window.location.pathname === "/about" && value !== 3) {
+      setValue(3);
+    } else if (window.location.pathname === "/contact" && value !== 4) {
+      setValue(4);
+    } else if (window.location.pathname === "/estimate" && value !== 5) {
+      setValue(5);
+    }
+  },[value]);
   return (
     <React.Fragment>
       <AppBar position="static" color="primary">
@@ -60,7 +76,7 @@ export default function Header(props) {
           <Tabs
             value={value}
             onChange={handleChange}
-            indicatorColor="primary"
+            indicatorColor="secondary"
             textColor="white"
             className={classes.tabContainer}
           >
@@ -74,25 +90,27 @@ export default function Header(props) {
             <Tab
               className={classes.tab}
               component={Link}
-              to="/therevolution"
+              to="/revolution"
               label="The revolution"
             />
             <Tab
               className={classes.tab}
               component={Link}
-              to="/aboutus"
+              to="/about"
               label="about us"
             />
             <Tab
               className={classes.tab}
               component={Link}
-              to="/contactus"
+              to="/contact"
               label="contact us"
             />
           </Tabs>
           <Button
             variant="contained"
             color="secondary"
+            component={Link}
+              to="/estimate"
             className={classes.button}
           >
             Free Estimate
