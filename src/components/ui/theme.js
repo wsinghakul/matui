@@ -21,11 +21,13 @@ export const theme = createTheme({
       textTransform: "none",
       fontWeight: 700,
       fontSize: "1rem",
+      color: "white"
+      
     },
     estimate: {
       fontSize: "1rem",
       textTransform: "none",
-    
+      color: "white"
     }
   },
 });

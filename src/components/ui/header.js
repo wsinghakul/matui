@@ -1,12 +1,14 @@
 import { AppBar } from "@mui/material";
 import { Toolbar } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import makeStyles from "@mui/styles/makeStyles";
 import logo from "../../assets/logo.svg";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Button from "@mui/material/Button";
+import { Link, Outlet } from "react-router-dom";
+
 function ElevationScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     height: "5em",
   },
   tabContainer: {
-    marginLeft: "auto",
+    marginLeft: "50px",
   },
   tab: {
     ...theme.typography.tab,
@@ -46,29 +48,59 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
+  const [value, setValue] = useState(0);
+  const handleChange = (e, value) => {
+    setValue(value);
+  };
   return (
     <React.Fragment>
-      <ElevationScroll>
-        <AppBar position="fixed" color="primary">
-          <Toolbar disableGutters>
-            <img alt="company logo" src={logo} className={classes.logo} />
-            <Tabs className={classes.tabContainer}>
-              <Tab className={classes.tab} label="Home" />
-              <Tab className={classes.tab} label="Services" />
-              <Tab className={classes.tab} label="The revolution" />
-              <Tab className={classes.tab} label="about us" />
-              <Tab className={classes.tab} label="contact us" />
-            </Tabs>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-            >
-              Free Estimate
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
+      <AppBar position="static" color="primary">
+        <Toolbar disableGutters>
+          <img alt="company logo" src={logo} className={classes.logo} />
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="white"
+            className={classes.tabContainer}
+          >
+            <Tab className={classes.tab} component={Link} to="/" label="Home" />
+            <Tab
+              className={classes.tab}
+              component={Link}
+              to="/services"
+              label="Services"
+            />
+            <Tab
+              className={classes.tab}
+              component={Link}
+              to="/therevolution"
+              label="The revolution"
+            />
+            <Tab
+              className={classes.tab}
+              component={Link}
+              to="/aboutus"
+              label="about us"
+            />
+            <Tab
+              className={classes.tab}
+              component={Link}
+              to="/contactus"
+              label="contact us"
+            />
+          </Tabs>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+          >
+            Free Estimate
+          </Button>
+        </Toolbar>
+      </AppBar>
+
+      <Outlet />
     </React.Fragment>
   );
 }
