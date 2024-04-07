@@ -1,18 +1,26 @@
-import { createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
-const arcBlue = "#0B72B9"
-const arcOrange = "#FFBA60"
-export  const theme = createTheme({ 
+import { createTheme } from "@mui/material/styles";
+
+const arcBlue = "#0B72B9";
+const arcOrange = "#FFBA60";
+export const themes = createTheme({
   palette: {
-    common : {
-        blue: `${arcBlue}`,
-        arcOrange: `${arcOrange}`
+    common: {
+      blue: `${arcBlue}`,
+      arcOrange: `${arcOrange}`,
     },
     primary: {
-        main: `${arcBlue}`
+      main: `${arcBlue}`,
     },
     secondary: {
-        main: `${arcOrange}`
-    }
+      main: `${arcOrange}`,
+    },
+  },
+  typography: {
+    tab: {
+      fontFamily: "Raleway",
+      textTransform: "none",
+      fontWeight: 700,
+      fontSize: "1rem",
+    },
   },
 });

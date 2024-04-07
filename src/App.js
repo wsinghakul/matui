@@ -1,10 +1,10 @@
 import "./App.css";
 import Header from "./components/ui/header";
 import { ThemeProvider } from "@mui/material";
-import { theme } from "./components/ui/theme";
+import { themes } from "./components/ui/theme";
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themes}>
       <Header></Header>
    </ThemeProvider>  
    

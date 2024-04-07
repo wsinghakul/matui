@@ -2,10 +2,11 @@ import { AppBar } from "@mui/material";
 import { Toolbar } from "@mui/material";
 import React from "react";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import makeStyles from "@mui/styles/makeStyles"
-import { theme } from "./theme";
-import logo from '../../assets/logo.svg'
-
+import makeStyles from "@mui/styles/makeStyles";
+import logo from "../../assets/logo.svg";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { themes } from "./theme";
 function ElevationScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -22,29 +23,38 @@ function ElevationScroll(props) {
   });
 }
 
-const useStypes = makeStyles(theme => ({
-  toolbarMargin: {
-    ...theme.mixins.toolbar,
-    marginBottom: "3em"
-  },
+const useStyles = makeStyles(themes => ({
   logo: {
-    height:"7em"
-  }
-}))
+    height: "7em",
+  },
+  tabContainer: {
+    marginLeft: "auto",
+  },
+  tab: {
+    ...themes.typography.tab,
+    minWidth: 10,
+    marginLeft: "25px",
+  },
+}));
 
 export default function Header(props) {
-  const classes = useStypes();
+  const classes = useStyles();
   return (
     <React.Fragment>
-       <ElevationScroll>
-      <AppBar position="fixed" color="primary">
-        <Toolbar disableGutters>
-          <img alt="company logo" src={logo} className={classes.logo} />
-         </Toolbar>
-      </AppBar>
-    </ElevationScroll>
-    <div className={classes.toolbarMargin} />
+      <ElevationScroll>
+        <AppBar position="fixed" color="primary">
+          <Toolbar disableGutters>
+            <img alt="company logo" src={logo} className={classes.logo} />
+            <Tabs className="classes.tabContainer">
+              <Tab className="classes.tab" label="Home" />
+              <Tab className="classes.tab" label="Services" />
+              <Tab className="classes.tab" label="The revolution" />
+              <Tab className="classes.tab" label="about us" />
+              <Tab className="classes.tab" label="contact us" />
+            </Tabs>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
     </React.Fragment>
-   
   );
 }
