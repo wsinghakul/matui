@@ -1,4 +1,4 @@
-import { AppBar } from "@mui/material";
+import { AppBar, IconButton } from "@mui/material";
 import { Toolbar } from "@mui/material";
 import React, { useState, useEffect, Fragment } from "react";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
@@ -12,12 +12,11 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/styles";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import MenuIcon from "@mui/icons-material/Menu";
 
 function ElevationScroll(props) {
   const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -33,21 +32,21 @@ const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
     marginBottom: "3em",
-    [theme.breakpoints.down("md")] : {
-     marginBottom: "2em"
+    [theme.breakpoints.down("md")]: {
+      marginBottom: "2em",
     },
-    [theme.breakpoints.down("xs")]:{
-      marginBottom: "1em"
-    }
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "1em",
+    },
   },
   logo: {
     height: "5em",
-    [theme.breakpoints.down("md")] : {
-      height: "3em"
+    [theme.breakpoints.down("md")]: {
+      height: "3em",
     },
-    [theme.breakpoints.down("xs")]:{
-      height: "1em"
-    }
+    [theme.breakpoints.down("xs")]: {
+      height: "1em",
+    },
   },
   tabContainer: {
     marginLeft: "50px",
@@ -68,27 +67,47 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.blue,
     color: "white",
   },
+  menuItem: {
+    ...theme.typography.tab,
+    opacity: 0.7,
+    "&:hover": {
+      opacity: 1,
+    },
+  },
+  drawrIcon: {
+    height: "50px",
+    width: "50px",
+  },
+  drawerIconContainer: {
+  
+    marginLeft: "auto",
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  },
 }));
 
 export default function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"))
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+  //const iOS = process.browser && /iPad|iPhone/.test(navigator.userAgent);
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
-  const handleChange = (e, value) => {
-    setValue(value);
+  const [openMenu, setOpenMenu] = useState(false);
+  const handleChange = (e, newValue) => {
+    setValue(newValue);
   };
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
-    setOpen(true);
+    setOpenMenu(true);
   };
 
   const handleClose = (e) => {
     setAnchorEl(null);
-    setOpen(false);
+    setOpenMenu(false);
   };
 
   useEffect(() => {
@@ -157,7 +176,7 @@ export default function Header(props) {
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
-        open={open}
+        open={openMenu}
         onClose={handleClose}
         MenuListProps={{ onMouseLeave: handleClose }}
         classes={{ paper: classes.menu }}
@@ -191,19 +210,39 @@ export default function Header(props) {
       </Menu>
     </Fragment>
   );
+
+  const drawer = (
+    <Fragment>
+      <SwipeableDrawer
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+        onOpen={() => setOpenDrawer(true)}
+      >
+        Example drawer
+      </SwipeableDrawer>
+      <IconButton
+        className={classes.drawerIconContainer}
+        onClick={() => setOpenDrawer(!openDrawer)}
+        disableRipple
+      >
+        <MenuIcon className={classes.drawrIcon} />
+      </IconButton>
+    </Fragment>
+  );
   return (
     <React.Fragment>
-      <AppBar position="static" color="primary">
+      <AppBar position="fixed" color="primary">
         <Toolbar disableGutters>
-          <Button component={Link}
-          to="/"
-          disableRipple
-          onClick={() => setValue(0)}
-          className={classes.logoContainer}
+          <Button
+            component={Link}
+            to="/"
+            disableRipple
+            onClick={() => setValue(0)}
+            className={classes.logoContainer}
           >
-          <img alt="company logo" src={logo} className={classes.logo} />
+            <img alt="company logo" src={logo} className={classes.logo} />
           </Button>
-          {matches ? null : tabs}
+          {matches ? drawer : tabs}
         </Toolbar>
       </AppBar>
 
